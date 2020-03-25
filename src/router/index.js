@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NotFound from '../views/NotFound.vue'
 import SignIn from '../views/SignIn.vue'
-import SignUp from '../views/SignUp.vue'
+//import SignUp from '../views/SignUp.vue'
 import Restaurants from '../views/Restaurants.vue'
 
 
@@ -52,6 +52,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  linkExactActiveClass: 'active',
   routes
 })
 
