@@ -8,15 +8,13 @@
         width="286px"
         height="180px"
       >
-      <div class="card-body">
+       <div class="card-body">
         <p class="card-text title-wrap">
-          <a href="#">
-            {{ restaurant.name }}
-          </a>
+          <a href="#">{{ restaurant.name }}</a>
         </p>
         <span class="badge badge-secondary">{{ restaurant.Category.name }}</span>
         <p class="card-text text-truncate">
-          {{ restaurant.description}}
+          {{ restaurant.description }}
         </p>
       </div>
       <div class="card-footer">
@@ -32,7 +30,7 @@
           v-else
           type="button"
           class="btn btn-pprimary favorite mr-2"
-          @click.stop.prevent="deleteFavorite"
+          @click.stop.prevent="addFavorite"
         >
           加到最愛
         </button>
@@ -66,6 +64,7 @@ export default {
 		}
 	},
 	data () {
+    console.log('this.initialRestaurant: ', this.initialRestaurant)
     return {
 			restaurant: this.initialRestaurant
 		}
@@ -75,7 +74,7 @@ export default {
 			this.restaurant = {
 				...this.restaurant,
 				isFavorited: true
-			}
+      }
 		},
 		deleteFavorite () {
 			this.restaurant = {

@@ -303,7 +303,7 @@ export default {
       totalPage: undefined
     }
   },
-  created() {
+  created () {
     this.fetchRestaurants()
   },
   methods: {
