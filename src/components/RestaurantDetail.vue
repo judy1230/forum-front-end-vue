@@ -82,7 +82,6 @@ export default {
     }
   },
   data () {
-    console.log('this.initialRestaurant: ', this.initialRestaurant)
     return {
       restaurant: this.initialRestaurant
     }

@@ -5,14 +5,18 @@
     <RestaurantDetail :initial-restaurant="restaurant" />
     <hr />
     <!-- 餐廳評論 RestaurantComments -->
-    <RestaurantComments :restaurant-comments="restaurantComments" />
+    <RestaurantComments :restaurant-comments="restaurantComments"
+    @after-delete-comment="afterDeleteComment" />
     <!-- 新增評論 CreateComment -->
+    <CreateComment :restaurant-id="restaurant.id"
+    @after-create-comment="afterCreateComment" />
   </div>
 </template>
 
 <script>
-import RestaurantDetail from "./../components/RestaurantDetail";
-import RestaurantComments from "./../components/RestaurantComments";
+import RestaurantDetail from "./../components/RestaurantDetail"
+import RestaurantComments from "./../components/RestaurantComments"
+import CreateComment from "./../components/CreateComment"
 
 const dummyData = {
     "restaurant": {
@@ -38,6 +42,23 @@ const dummyData = {
             {
                 "id": 3,
                 "text": "Quos asperiores in nostrum cupiditate excepturi aspernatur.",
+                "UserId": 3,
+                "RestaurantId": 1,
+                "createdAt": "2019-06-22T09:00:43.000Z",
+                "updatedAt": "2019-06-22T09:00:43.000Z",
+                "User": {
+                    "id": 3,
+                    "name": "user2",
+                    "email": "user2@example.com",
+                    "password": "$2a$10$0ISHJI48xu/VRNVmEeycFe8v5ChyT305f8KaJVIhumu7M/eKAikkm",
+                    "image": "https://i.imgur.com/XooCt5K.png",
+                    "isAdmin": false,
+                    "createdAt": "2019-06-22T09:00:43.000Z",
+                    "updatedAt": "2019-06-23T01:16:31.000Z"
+                }
+            },{
+                "id": 2,
+                "text": "test cupiditate excepturi aspernatur.",
                 "UserId": 2,
                 "RestaurantId": 1,
                 "createdAt": "2019-06-22T09:00:43.000Z",
@@ -52,16 +73,45 @@ const dummyData = {
                     "createdAt": "2019-06-22T09:00:43.000Z",
                     "updatedAt": "2019-06-23T01:16:31.000Z"
                 }
+            },
+            {
+                "id": 1,
+                "text": "111",
+                "UserId": 1,
+                "RestaurantId": 1,
+                "createdAt": "2019-06-22T09:00:43.000Z",
+                "updatedAt": "2019-06-22T09:00:43.000Z",
+                "User": {
+                    "id": 1,
+                    "name": "root",
+                    "email": "root@example.com",
+                    "password": "$2a$10$0ISHJI48xu/VRNVmEeycFe8v5ChyT305f8KaJVIhumu7M/eKAikkm",
+                    "image": "https://i.imgur.com/XooCt5K.png",
+                    "isAdmin": false,
+                    "createdAt": "2019-06-22T09:00:43.000Z",
+                    "updatedAt": "2019-06-23T01:16:31.000Z"
+                }
             }
         ]
     },
     "isFavorited": false,
     "isLiked": false
 }
+const dummyUser = {
+  currentUser: {
+    id: 1,
+    name: '管理者',
+    email: 'root@example.com',
+    image: 'https://i.pravatar.cc/300',
+    isAdmin: true
+  },
+  isAuthenticated: true
+}
 export default {
   components: {
     RestaurantDetail,
-    RestaurantComments
+    RestaurantComments,
+    CreateComment
   },
   data() {
     return {
@@ -77,8 +127,9 @@ export default {
         isFavorited: false,
         isLiked: false
       },
+      currentUser: dummyUser.currentUser,
       restaurantComments: []
-    };
+    }
   },
   created() {
     const { id: restaurantId } = this.$route.params
@@ -100,8 +151,24 @@ export default {
         isFavorited: dummyData.isFavorited,
         isLiked: dummyData.isLiked
       };
-      console.log("this.restaurant", this.restaurant)
       this.restaurantComments = dummyData.restaurant.Comments
+    },
+    afterDeleteComment (commentId) {
+      this.restaurantComments = this.restaurantComments.filter(comment => comment.id !== commentId)
+    },
+    afterCreateComment (payload) {
+      const { commentId, restaurantId, text } = payload
+      this.restaurantComments.push({
+        id: commentId,
+        RestaurantId: restaurantId,
+        User: {
+          id: this.currentUser.id,
+          name: this.currentUser.name
+        },
+        text,
+        createdAt: new Date()
+      })
+      console.log('this.restaurantComments',this.restaurantComments)
     }
   }
 };
