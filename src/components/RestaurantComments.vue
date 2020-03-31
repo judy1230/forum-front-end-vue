@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import moment from 'moment'
+import { fromNowFilter } from './../utils/mixins'
+
 const dummyUser = {
   currentUser: {
     id: 1,
@@ -43,6 +44,7 @@ const dummyUser = {
   isAuthenticated: true
 }
 export default {
+  mixins: [fromNowFilter],
   props: {
     restaurantComments: {
       type: Array,
@@ -52,15 +54,6 @@ export default {
   data () {
     return {
       currentUser:dummyUser.currentUser
-    }
-  },
-	filters: {
-    fromNow (datetime) {
-      if (!datetime) {
-        return '-'
-      }
-      // 使用 moment 提供的 fromNow 方法
-      return moment(datetime).fromNow()
     }
   },
   methods: {
