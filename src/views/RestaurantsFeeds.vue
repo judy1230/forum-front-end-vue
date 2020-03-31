@@ -220,44 +220,6 @@ const dummyData = {
     ],
     "comments": [
         {
-            "id": 3802,
-            "text": null,
-            "UserId": 1,
-            "RestaurantId": null,
-            "createdAt": "2020-03-24T12:11:20.000Z",
-            "updatedAt": "2020-03-24T12:11:20.000Z",
-            "User": {
-                "id": 1,
-                "name": "root",
-                "email": "root@example.com",
-                "password": "$2a$10$J9pLpJJ1Tzfe/ZcjdYwXdumyh.3F5E.w/HTxRcH./cl3azhgekgQe",
-                "isAdmin": true,
-                "image": null,
-                "createdAt": "2020-02-28T14:38:32.000Z",
-                "updatedAt": "2020-03-02T17:09:40.000Z"
-            },
-            "Restaurant": null
-        },
-        {
-            "id": 3782,
-            "text": "test",
-            "UserId": 1,
-            "RestaurantId": null,
-            "createdAt": "2020-03-22T05:56:08.000Z",
-            "updatedAt": "2020-03-22T05:56:08.000Z",
-            "User": {
-                "id": 1,
-                "name": "root",
-                "email": "root@example.com",
-                "password": "$2a$10$J9pLpJJ1Tzfe/ZcjdYwXdumyh.3F5E.w/HTxRcH./cl3azhgekgQe",
-                "isAdmin": true,
-                "image": null,
-                "createdAt": "2020-02-28T14:38:32.000Z",
-                "updatedAt": "2020-03-02T17:09:40.000Z"
-            },
-            "Restaurant": null
-        },
-        {
             "id": 3772,
             "text": "好啊",
             "UserId": 1,

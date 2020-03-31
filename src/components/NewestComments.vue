@@ -4,12 +4,14 @@
     <div class="card-body">
       <div v-for="comment in comments" :key="comment.id">
         <h4>
-          <a href="#">{{ comment.title}}</a>
+          <router-link :to="{ name: 'restaurant', params:{id: comment.Restaurant.id}}" @click="check"
+          >{{ comment.Restaurant.name }}</router-link>
+          <!-- <a href="#">{{ comment.title}}</a> -->
         </h4>
         <p>{{ comment.text }}</p>by
         <a href="#">{{ comment.User.name }}</a>
         {{ comment.createdAt | fromNow }}
-        <hr>
+        <hr />
       </div>
     </div>
   </div>
@@ -17,15 +19,20 @@
 
 <script>
 //import moment from 'moment'
-import { fromNowFilter } from './../utils/mixins'
+import { fromNowFilter } from "./../utils/mixins";
 
 export default {
-	mixins: [fromNowFilter],
-	props: {
-		comments : {
-			type: Array,
-			required: true
-		}
-	}
-}
+  mixins: [fromNowFilter],
+  props: {
+    comments: {
+      type: Array,
+      required: true
+    }
+  },
+  method:{
+    check () {
+      console.log('this.comments',this.comments)
+    }
+  }
+};
 </script>

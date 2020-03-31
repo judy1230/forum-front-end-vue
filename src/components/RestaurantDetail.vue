@@ -2,16 +2,14 @@
   <div class="row">
     <div class="col-md-12 mb-3">
       <h1>{{ restaurant.name }}</h1>
-      <p class="badge badge-secondary mt-1 mb-3">
-        {{ restaurant.categoryName}}
-      </p>
+      <p class="badge badge-secondary mt-1 mb-3">{{ restaurant.categoryName}}</p>
     </div>
     <div class="col-lg-4">
       <img
         class="img-responsive center-block"
-    src="https://loremflickr.com/320/240/food,dessert,restaurant/"
+        :src="restaurant.image"
         style="width: 250px;margin-bottom: 25px;"
-      >
+      />
       <div class="contact-info-wrap">
         <ul class="list-unstyled">
           <li>
@@ -31,43 +29,39 @@
     </div>
     <div class="col-lg-8">
       <p>{{ restaurant.description }}</p>
-      <a
+
+      <!-- <a
         class="btn btn-primary btn-border mr-2"
         href="#"
-      >Dashboard</a>
-
+      >Dashboard</a>-->
+      <router-link
+        :to="{ name: 'restaurant-dashboard', params: {id: restaurant.id}}"
+        class="btn btn-info btn-border mr-2"
+      >Dashboard</router-link>
       <button
-          v-if="restaurant.isFavorited"
-          type="button"
-          class="btn btn-danger favorite mr-2"
-          @click.stop.prevent="deleteFavorite"
-        >
-          移除最愛
-        </button>
-        <button
-          v-else
-          type="button"
-          class="btn btn-pprimary favorite mr-2"
-          @click.stop.prevent="addFavorite"
-        >
-          加到最愛
-        </button>
-        <button
-          v-if="restaurant.isLiked"
-          type="button"
-          class="btn btn-danger like mr-2"
-          @click.stop.prevent="deleteLike"
-        >
-          Unlike
-        </button>
-        <button
-          v-else
-          type="button"
-          class="btn btn-primary like mr-2"
-          @click.stop.prevent="addLike"
-        >
-          Like
-        </button>
+        v-if="restaurant.isFavorited"
+        type="button"
+        class="btn btn-danger favorite mr-2"
+        @click.stop.prevent="deleteFavorite"
+      >移除最愛</button>
+      <button
+        v-else
+        type="button"
+        class="btn btn-pprimary favorite mr-2"
+        @click.stop.prevent="addFavorite"
+      >加到最愛</button>
+      <button
+        v-if="restaurant.isLiked"
+        type="button"
+        class="btn btn-danger like mr-2"
+        @click.stop.prevent="deleteLike"
+      >Unlike</button>
+      <button
+        v-else
+        type="button"
+        class="btn btn-primary like mr-2"
+        @click.stop.prevent="addLike"
+      >Like</button>
     </div>
   </div>
 </template>
@@ -81,17 +75,17 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       restaurant: this.initialRestaurant
-    }
+    };
   },
   methods: {
     addFavorite() {
       this.restaurant = {
         ...this.restaurant,
         isFavorited: true
-      }
+      };
     },
     deleteFavorite() {
       this.restaurant = {
@@ -112,5 +106,5 @@ export default {
       };
     }
   }
-}
+};
 </script>
