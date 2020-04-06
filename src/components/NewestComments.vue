@@ -6,10 +6,10 @@
         <h4>
           <router-link :to="{ name: 'restaurant', params:{id: comment.Restaurant.id}}" @click="check"
           >{{ comment.Restaurant.name }}</router-link>
-          <!-- <a href="#">{{ comment.title}}</a> -->
         </h4>
         <p>{{ comment.text }}</p>by
-        <a href="#">{{ comment.User.name }}</a>
+        <router-link :to="{ name: 'user', params:{id: comment.User.id}}">{{ comment.User.name }}</router-link>
+        <!-- <a href="#"></a> -->
         {{ comment.createdAt | fromNow }}
         <hr />
       </div>

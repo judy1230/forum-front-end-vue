@@ -1,8 +1,5 @@
 <template>
   <div class="card">
-    <div class="card-header">
-      最新餐廳
-    </div>
     <div class="card-body">
       <div
         v-for="restaurant in restaurants"

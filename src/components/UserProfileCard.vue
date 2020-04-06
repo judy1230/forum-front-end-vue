@@ -15,6 +15,11 @@
               <li>{{ profileFollowings.length }} followings</li>
               <li>{{ profileFollowers.length }} followers</li>
             </ul>
+            <button
+              v-if="profile.id === currentUser.id & isAuthenticated"
+              class="btn btn-primary">Edit
+            </button>
+
           </div>
         </div>
       </div>
@@ -23,7 +28,41 @@
 </template>
 
 <script>
+const dummyUser = {
+	currentUser: {
+		id: 1,
+		name: '管理者',
+		email: 'root@example.com',
+		image: ' https://i.pravatar.cc/300',
+		isAdmin: true
+  },
+  isAuthenticated: false
+}
 export default {
+  data () {
+    return {
+			currentUser: {
+				id: -1,
+				name: '',
+				email: '',
+				image: '',
+				isAdmin: false
+			},
+			isAuthenticated: false
+    }
+  },
+  created () {
+    this.fetchUser()
+  },
+  methods: {
+    fetchUser () {
+      this.currentUser = {
+      ...this.currentUser,
+      ...dummyUser.currentUser
+    }
+    this.isAuthenticated = dummyUser.isAuthenticated
+    }
+  },
   props: {
     profile: {
       type: Object,

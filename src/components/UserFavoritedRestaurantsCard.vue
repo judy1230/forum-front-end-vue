@@ -3,7 +3,10 @@
     <div class="card-header">{{ profileFavoritedRestaurants.length }} 已收藏餐廳</div>
     <div class="card-body row">
       <div class="ml-2 mt-2" v-for="restaurant in profileFavoritedRestaurants" :key="restaurant.id">
+				<router-link :to="{name: 'restaurant', params:{id: restaurant.id}}"
+				>
         <img :src="restaurant.image" style="width:50px;"/>
+				</router-link>
       </div>
     </div>
   </div>
