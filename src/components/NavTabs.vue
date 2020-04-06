@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import uuid from 'uuid/v4'
+//import uuid from 'uuid/v4'
+const uuid = require('uuid/v4')
 export default {
   data () {
 		return {

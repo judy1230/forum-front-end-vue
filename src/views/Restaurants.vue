@@ -297,7 +297,7 @@ export default {
   data () {
     return {
       categories: [],
-      categoryId: undefined,
+      categoryId: -1,
       currentPage: 1,
       restaurants: [],
       totalPage: undefined
