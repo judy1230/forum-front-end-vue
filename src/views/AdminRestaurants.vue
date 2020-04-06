@@ -8,6 +8,9 @@
     >
       New Restaurant
     </a>
+    <router-link :to="{ name: 'admin-restaurant-new'}">
+
+    </router-link>
 
     <!-- 後台餐廳列表 AdminRestaurantsTable -->
 		<AdminRestaurantsTable/>
