@@ -15,10 +15,15 @@
               <li>{{ profileFollowings.length }} followings</li>
               <li>{{ profileFollowers.length }} followers</li>
             </ul>
-            <button
+            <router-link class="btn btn-primary "
+            v-if="profile.id === currentUser.id "
+            :to="{name:'user-edit', params: {id: currentUser.id}}">
+             Edit
+            </router-link>
+            <!-- <button
               v-if="profile.id === currentUser.id & isAuthenticated"
               class="btn btn-primary">Edit
-            </button>
+            </button> -->
 
           </div>
         </div>
