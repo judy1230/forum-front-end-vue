@@ -46,7 +46,7 @@ const dummyUser = {
 		image: ' https://i.pravatar.cc/300',
 		isAdmin: true
   },
-  isAuthenticated: true
+  isAuthenticated: false
 }
 
 export default {

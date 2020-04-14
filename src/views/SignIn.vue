@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import authorizationAPI from './../apis/authorization'
+
 export default {
   name: 'SignIn',
   data () {
@@ -68,12 +70,17 @@ export default {
 	methods: {
 		// eslint-disable-next-line
 		handleSubmit (e) {
-			const data = JSON.stringify({
-				email: this.email,
-				password: this.password
-			})
-			// eslint-disable-next-line
-			consoel.log('data', data)
+      authorizationAPI.signIn({
+        email: this.email,
+        password: this.password
+      }).then(response => {
+        // TODO: 取得 API 請求後的資料
+        console.log('response', response)
+        const { data } = response
+        localStorage.setItem('token', data.token)
+        // 成功登入後轉址到餐聽首頁
+        this.$router.push('/restaurants')
+      })
 		}
 	}
 }
