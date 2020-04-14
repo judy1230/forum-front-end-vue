@@ -19,8 +19,8 @@
             class="btn btn-link"
           >Show</router-link>
 
-          <a href="#" class="btn btn-link">Edit</a>
-
+          <!-- <a href="#" class="btn btn-link">Edit</a> -->
+          <router-link :to="{name: 'admin-restaurant-edit', params: {id: restaurant.id}}">Edit</router-link>
           <button @click.stop.prevent="deleteRestaurant(restaurant.id)" type="button" class="btn btn-link">Delete</button>
         </td>
       </tr>

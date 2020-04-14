@@ -121,6 +121,20 @@ const dummyData = {
   ]
 };
 export default {
+  props: {
+    initialRestaurant: {
+      type: Object,
+      default: () => ({
+        name: '',
+        categoryId: '',
+        tel: '',
+        address: '',
+        description: '',
+        image: '',
+        openingHours: '',
+      })
+    }
+  },
   data() {
     return {
       restaurant: {
@@ -136,7 +150,11 @@ export default {
     };
   },
   created() {
-    this.fetchCategories();
+    this.fetchCategories()
+    this.restaurant = {
+      ...this.restaurant,
+      ...this.initialRestaurant
+    }
   },
   methods: {
     fetchCategories() {
@@ -152,9 +170,9 @@ export default {
 		handleSubmit (e) {
       const form = e.target  // <form></form>
       const formData = new FormData(form)
-      // for (let [name, value] of formData.entries()) {
-      //   console.log(name + ': ' + value)
-			// }
+      for (let [name, value] of formData.entries()) {
+        console.log(name + ': ' + value)
+      }
 			this.$emit('after-submit', formData)
     }
 	},

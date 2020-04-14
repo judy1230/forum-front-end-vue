@@ -23,7 +23,7 @@
       <div class="ml-auto d-flex align-items-center">
 
         <!-- is user is admin -->
-        <router-link v-if="currentUser.isAdmin" to="#" class="text-white mr-3" >管理員後台</router-link>
+        <router-link v-if="currentUser.isAdmin" :to="{name: 'admin-restaurants'}" class="text-white mr-3" >管理員後台</router-link>
 
         <!-- is user is login -->
         <template v-if="isAuthenticated">
@@ -46,7 +46,7 @@ const dummyUser = {
 		image: ' https://i.pravatar.cc/300',
 		isAdmin: true
   },
-  isAuthenticated: false
+  isAuthenticated: true
 }
 
 export default {
