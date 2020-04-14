@@ -61,7 +61,6 @@
 
 <script>
 import AdminNav from "./../components/AdminNav";
-//import uuid from "uuid/v4";
 const uuidv4 = require('uuid/v4');
 
 // 2. 定義暫時使用的資料
