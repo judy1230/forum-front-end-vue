@@ -86,6 +86,11 @@ const routes = [
     component: () => import('../views/AdminRestaurantEdit.vue')
   },
   {
+    path: '/admin/categories',
+    name: 'admin-categories',
+    component: () => import('../views/AdminCategories.vue')
+  },
+  {
     path: '/user/:id/edit',
     name: 'user-edit',
     component: () => import('../views/UserEdit.vue')
