@@ -54,8 +54,6 @@ export default {
         }
         this.restaurants = data.restaurants
         this.comments = data.comments
-        console.log('this.restaurants:', this.restaurants)
-        console.log('this.comments',this.comments)
       } catch (error) {
         Toast.fire({
           type:'warn',

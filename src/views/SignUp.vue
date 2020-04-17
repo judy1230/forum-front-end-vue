@@ -104,7 +104,7 @@ export default {
 				password2: this.password2
 			})
 			// eslint-disable-next-line
-			consoel.log('data', data)
+			console.log('data', data)
 		}
 	}
 }
