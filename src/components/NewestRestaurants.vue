@@ -23,6 +23,7 @@
 //import moment from 'moment'
 import { fromNowFilter } from './../utils/mixins'
 
+
 export default {
 	mixins: [fromNowFilter],
 	props:{
@@ -31,5 +32,6 @@ export default {
       required: true
     }
   },
+
 }
 </script>
