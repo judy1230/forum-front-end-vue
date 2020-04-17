@@ -32,29 +32,28 @@
 </template>
 
 <script>
-//import uuid from 'uuid/v4'
-const uuid = require('uuid/v4')
+import { v4 as uuidv4 } from 'uuid';
 export default {
   data () {
 		return {
 			tabs: [
 				{
-					id:uuid(),
+					id: uuidv4(),
 					title: '首頁',
 					path: '/restaurants'
 				},
 				{
-					id:uuid(),
+					id: uuidv4(),
 					title: '最新動態',
 					path: '/restaurants/feeds'
 				},
 				{
-					id:uuid(),
+					id: uuidv4(),
 					title: 'TOP 10 人氣餐廳',
 					path: '/restaurants/top'
 				},
 				{
-					id:uuid(),
+					id: uuidv4(),
 					title: '美食達人',
 					path: '/users/top'
 				},
