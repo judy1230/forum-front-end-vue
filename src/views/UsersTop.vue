@@ -65,7 +65,6 @@ export default {
         if (statusText !== "OK" || data.status !== "success") {
           throw new Error(statusText);
         }
-        console.log('this.users', this.users)
         this.users = this.users.map(user => {
           if (user.id !== userId) {
             return user;

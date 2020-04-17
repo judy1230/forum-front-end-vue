@@ -6,7 +6,7 @@ export default {
 		return apiHelper.post(`/favorite/${restaurantId}`, null, { headers: { Authorization: `Bearer ${getToken()}` } })
 	},
 	deleteFavorite({ restaurantId }) {
-		return apiHelper.delete(`/favorite/${restaurantId}`, { headers: { Authorization: `Bearer ${getToken()}` } })
+		return apiHelper.delete(`/favorite/${restaurantId}`, { headers: { Authorization: `Bearer ${getToken()}`}})
 	},
 	addLike({ restaurantId }) {
 		return apiHelper.post(`/like/${restaurantId}`, null, { headers: { Authorization: `Bearer ${getToken()}` } })
@@ -25,6 +25,7 @@ export default {
 	},
 	deleteFollowing({ userId }) {
 		return apiHelper.delete(`following/${userId}`, { headers: { Authorization: `Bearer ${getToken()}`}})
-	}
+	},
+
 }
 

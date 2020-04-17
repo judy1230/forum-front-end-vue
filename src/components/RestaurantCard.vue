@@ -100,7 +100,7 @@ export default {
       } catch (error) {
         Toast.fire({
           type: "error",
-          title: "無法將餐廳從最愛移除, 請稍後再試"
+          title: "無法將餐廳取消最愛, 請稍後再試"
         });
       }
     },
@@ -121,7 +121,7 @@ export default {
       } catch (error) {
         Toast.fire({
           type: "error",
-          title: "無法將餐廳從最愛移除, 請稍後再試"
+          title: "無法喜愛餐廳, 請稍後再試"
         });
       }
     },
@@ -142,7 +142,7 @@ export default {
       } catch (error) {
         Toast.fire({
           type: "error",
-          title: "無法將餐廳從最愛移除, 請稍後再試"
+          title: "無法取消喜愛餐廳, 請稍後再試"
         });
       }
     }
