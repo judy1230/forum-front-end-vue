@@ -63,11 +63,9 @@ export default {
         const { data, statusText } = await adminAPI.restaurants.delete({
           restaurantId
         })
-        console.log('data',data)
         if ( statusText !== 'OK' || data.status !== 'success') {
           throw new Error(statusText)
         }
-        console.log('this.restaurants',this.restaurants)
         this.restaurants = this.restaurants.filter(
           restaurant => restaurant.id !== restaurantId
         )
