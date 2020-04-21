@@ -1,4 +1,5 @@
 import { apiHelper } from './../utils/helpers'
+const getToken = () => localStorage.getItem('token')
 
 export default {
 	// 帶入需要的參數
@@ -8,5 +9,8 @@ export default {
 			email,
 			password
 		})
-	}
+	},
+	signUp({ formData }) {
+		console.log('formData13', formData)
+		return apiHelper.post('/signup'), formData, { headers: { Authorization: `Bearer ${getToken()}` } } }
 }
