@@ -44,7 +44,7 @@ export default {
   methods: {
     async fetchUsers() {
       try {
-        const { data, statusText } = await usersAPI.getTopUser();
+        const { data, statusText } = await usersAPI.getTopUsers();
 
         if (statusText !== "OK") {
           throw new Error(statusText);

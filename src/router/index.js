@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NotFound from '../views/NotFound.vue'
 import SignIn from '../views/SignIn.vue'
-//import SignUp from '../views/SignUp.vue'
 import Restaurants from '../views/Restaurants.vue'
+import store from './../store'
 
 
 
@@ -110,6 +110,13 @@ const routes = [
 const router = new VueRouter({
   linkExactActiveClass: 'active',
   routes
+})
+router.beforeEach((to, from, next) => {
+  console.log('to', to)
+  console.log('from', from)
+  //使用dispatch呼叫 Vuex內的actions
+  store.dispatch('fetchCurrentUser')
+  next()
 })
 
 export default router
