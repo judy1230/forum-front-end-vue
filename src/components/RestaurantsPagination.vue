@@ -40,8 +40,8 @@
 export default {
   props: {
     categoryId: {
-      type: Number,
-      default: -1
+      type: [String, Number],
+      default: ''
     },
     currentPage: {
       type: Number,
@@ -49,7 +49,7 @@ export default {
     },
     totalPage: {
       type: Number,
-      default: -1
+      default: 0
     }
 	},
 	computed: {

@@ -5,32 +5,25 @@
     <RestaurantDetail :initial-restaurant="restaurant" />
     <hr />
     <!-- 餐廳評論 RestaurantComments -->
-    <RestaurantComments :restaurant-comments="restaurantComments"
-    @after-delete-comment="afterDeleteComment" />
+    <RestaurantComments
+      :restaurant-comments="restaurantComments"
+      @after-delete-comment="afterDeleteComment"
+    />
     <!-- 新增評論 CreateComment -->
-    <CreateComment :restaurant-id="restaurant.id"
-    @after-create-comment="afterCreateComment" />
+    <CreateComment :restaurant-id="restaurant.id" @after-create-comment="afterCreateComment" />
   </div>
 </template>
 
 <script>
-import RestaurantDetail from "./../components/RestaurantDetail"
-import RestaurantComments from "./../components/RestaurantComments"
-import CreateComment from "./../components/CreateComment"
-import restaurantsAPI from './../apis/restaurants'
-import Toast from './../utils/helpers'
+import RestaurantDetail from "./../components/RestaurantDetail";
+import RestaurantComments from "./../components/RestaurantComments";
+import CreateComment from "./../components/CreateComment";
+import restaurantsAPI from "./../apis/restaurants";
+//import Toast, { apiHelper } from './../utils/helpers'
+import { mapState } from "vuex";
+//import usersAPI from "./../apis/users";
+import { Toast } from "./../utils/helpers";
 
-
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: '管理者',
-    email: 'root@example.com',
-    image: 'https://i.pravatar.cc/300',
-    isAdmin: true
-  },
-  isAuthenticated: true
-}
 export default {
   components: {
     RestaurantDetail,
@@ -51,55 +44,53 @@ export default {
         isFavorited: false,
         isLiked: false
       },
-      currentUser: dummyUser.currentUser,
       restaurantComments: []
-    }
+    };
+  },
+  beforRouteUpdate(to, from, next) {
+    const { id: restaurantId } = to.params;
+    this.fetchRestaurant(restaurantId);
+    next();
   },
   created() {
-    const { id: restaurantId } = this.$route.params
-    this.fetchRestaurant(restaurantId)
-  },
-  beforRouteUpdate (to, from, next){
-    const { id: restaurantId } = to.params
-    this.fetchRestaurant(restaurantId)
-    next()
+    const { id: restaurantId } = this.$route.params;
+    this.fetchRestaurant(restaurantId);
   },
   methods: {
     async fetchRestaurant(restaurantId) {
-      console.log("fetchRestaurant id: ", restaurantId)
+      console.log("fetchRestaurant id: ", restaurantId);
       try {
-        const {data, statusText} = await restaurantsAPI.getRestaurant({
+        const { data, statusText } = await restaurantsAPI.getRestaurant({
           restaurantId
-        })
+        });
 
-        if (statusText !== 'OK') {
-          throw new Error(statusText)
+        if (statusText !== "OK") {
+          throw new Error(statusText);
         }
         this.restaurant = {
-        id: data.restaurant.id,
-        name: data.restaurant.name,
-        categoryName: data.restaurant.Category.name,
-        image: data.restaurant.image,
-        openingHours: data.restaurant.opening_hours,
-        tel: data.restaurant.tel,
-        address: data.restaurant.address,
-        description: data.restaurant.description,
-        isFavorited: data.isFavorited,
-        isLiked: data.isLiked
-      };
-      this.restaurantComments = data.restaurant.Comments
-      }catch (error) {
+          id: data.restaurant.id,
+          name: data.restaurant.name,
+          categoryName: data.restaurant.Category.name,
+          image: data.restaurant.image,
+          openingHours: data.restaurant.opening_hours,
+          tel: data.restaurant.tel,
+          address: data.restaurant.address,
+          description: data.restaurant.description,
+          isFavorited: data.isFavorited,
+          isLiked: data.isLiked
+        };
+        this.restaurantComments = data.restaurant.Comments;
+      } catch (error) {
         Toast.fire({
-          type: 'error',
-          title: '無法取得餐廳資料，請稍後再試'
-        })
+          type: "error",
+          title: "無法取得餐廳資料，請稍後再試"
+        });
       }
-
     },
-    afterDeleteComment (commentId) {
+    afterDeleteComment(commentId) {
       this.restaurantComments = this.restaurantComments.filter(comment => comment.id !== commentId)
     },
-    afterCreateComment (payload) {
+    afterCreateComment(payload) {
       const { commentId, restaurantId, text } = payload
       this.restaurantComments.push({
         id: commentId,
@@ -111,8 +102,10 @@ export default {
         text,
         createdAt: new Date()
       })
-      console.log('this.restaurantComments',this.restaurantComments)
     }
+  },
+  computed: {
+    ...mapState(["currentUser"])
   }
 };
 </script>
