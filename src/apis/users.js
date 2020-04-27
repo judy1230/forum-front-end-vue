@@ -3,14 +3,13 @@ const getToken = () => localStorage.getItem('token')
 
 export default {
 	getCurrentUser() {
-		return apiHelper.get(`/get_current_user`, {
-			headers: { Authorization: `Bearer ${getToken()}` }
-		})
+		return apiHelper.get(`/get_current_user`, { headers: { Authorization: `Bearer ${getToken()}` }})
+
 	},
 	get({ userId }) {
-		return apiHelper.get(`/users/${userId}`, {
-			headers: { Authorization: `Bearer ${getToken()}` }
-		})
+		console.log('userId',userId)
+		console.log('getToken()', getToken())
+		return apiHelper.get(`/users/${userId}`, { headers: { Authorization: `Bearer ${getToken()}`, 'X-Access-Token': 'dontbeserious'}} )
 	},
 	getTopUsers() {
 		return apiHelper.get('/users/top', {

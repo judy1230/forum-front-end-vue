@@ -1,95 +1,125 @@
 <template>
-  <div class="container py-5">
-    <div class="card" style="">
-      <div class="row ">
-        <div class="col-md-4">
-          <img :src="profile.image" class="card-img" alt="" />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">{{ profile.name }}</h3>
-            <h3 class="card-text">{{ profile.email }}</h3>
-            <ul class="m-auto">
-              <li>{{ profileComments.length }} 已評論的餐廳</li>
-              <li>{{ profileFavoritedRestaurants.length }} 收藏的餐廳</li>
-              <li>{{ profileFollowings.length }} followings</li>
-              <li>{{ profileFollowers.length }} followers</li>
-            </ul>
-            <router-link class="btn btn-primary "
-            v-if="profile.id === currentUser.id "
-            :to="{name:'user-edit', params: {id: currentUser.id}}">
-             Edit
-            </router-link>
-            <!-- <button
-              v-if="profile.id === currentUser.id & isAuthenticated"
-              class="btn btn-primary">Edit
-            </button> -->
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img :src="user.image | emptyImage" width="300px" height="300px" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{user.name}}</h5>
+          <p class="card-text">{{user.email}}</p>
+          <ul class="list-unstyled list-inline">
+            <li>
+              <strong>{{user.commentsLength}}</strong> 已評論餐廳
+            </li>
+            <li>
+              <strong>{{user.favoritedRestaurantsLength}}</strong> 收藏的餐廳
+            </li>
+            <li>
+              <strong>{{user.followingsLength}}</strong> followings (追蹤者)
+            </li>
+            <li>
+              <strong>{{user.followersLength}}</strong> followers (追隨者)
+            </li>
+          </ul>
 
-          </div>
+          <!-- 本人 -->
+          <template v-if="isCurrentUser">
+            <router-link
+              :to="{name:'admin-user-edit',params:{id:user.id}}"
+              class="btn btn-primary"
+            >edit</router-link>
+          </template>
+
+          <!-- 非本人 -->
+          <template v-else>
+            <button
+              v-if="isFollowed"
+              type="button"
+              class="btn btn-danger"
+              @click.stop.prevent="removeFollowing(user.id)"
+            >取消追蹤</button>
+
+            <button
+              v-else
+              type="button"
+              class="btn btn-primary"
+              @click.stop.prevent="addFollowing(user.id)"
+            >追蹤</button>
+          </template>
         </div>
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
-const dummyUser = {
-	currentUser: {
-		id: 1,
-		name: '管理者',
-		email: 'root@example.com',
-		image: ' https://i.pravatar.cc/300',
-		isAdmin: true
-  },
-  isAuthenticated: false
-}
+import { emptyImageFilter } from './../utils/mixins'
+import usersAPI from './../apis/users'
+import { Toast } from './../utils/helpers'
 export default {
-  data () {
-    return {
-			currentUser: {
-				id: -1,
-				name: '',
-				email: '',
-				image: '',
-				isAdmin: false
-			},
-			isAuthenticated: false
-    }
-  },
-  created () {
-    this.fetchUser()
-  },
-  methods: {
-    fetchUser () {
-      this.currentUser = {
-      ...this.currentUser,
-      ...dummyUser.currentUser
-    }
-    this.isAuthenticated = dummyUser.isAuthenticated
-    }
-  },
+  name: 'UserProfileCard',
+  mixins: [emptyImageFilter],
   props: {
-    profile: {
+    user: {
       type: Object,
       required: true
-		},
-    profileComments: {
-      type: Array,
+    },
+    isCurrentUser: {
+      type: Boolean,
       required: true
     },
-    profileFavoritedRestaurants: {
-      type: Array,
-      required: true
-    },
-    profileFollowings: {
-      type: Array,
-      required: true
-    },
-    profileFollowers: {
-      type: Array,
+    initialIsFollowed: {
+      type: Boolean,
       required: true
     }
-	},
-
-};
+  },
+  data() {
+    return {
+      isFollowed: this.initialIsFollowed
+    }
+  },
+  watch: {
+    initialIsFollowed(isFollowed) {
+      this.isFollowed = isFollowed
+    }
+  },
+  methods: {
+    async addFollowing(userId) {
+      try {
+        const { data, statusText } = await usersAPI.addFollowing({
+          userId
+        })
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
+        }
+        this.isFollowed = true
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '已開始追蹤該使用者'
+        })
+      }
+    },
+    async removeFollowing(userId) {
+      try {
+        const { data, statusText } = await usersAPI.deleteFollowing({
+          userId
+        })
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
+        }
+        this.isFollowed = false
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '暫時無法取消追蹤，請稍後再試'
+        })
+      }
+    }
+  }
+}
 </script>
+
+

@@ -27,7 +27,6 @@ import NavTabs from "./../components/NavTabs";
 import RestaurantCard from "./../components/RestaurantCard";
 import RestaurantsNavPills from "./../components/RestaurantsNavPills";
 import RestaurantsPagination from "./../components/RestaurantsPagination";
-// STEP 1：透過 import 匯入剛剛撰寫好用來呼叫 API 的方法
 import restaurantsAPI from "./../apis/restaurants"
 import { Toast } from './../utils/helpers'
 
@@ -48,14 +47,14 @@ export default {
       totalPage: -1,
     };
   },
-  created () {
-    const { page, categoryId } = this.$route.query
-    this.fetchRestaurants({ page, categoryId })
-  },
   beforeRouteUpdate (to, from, next) {
     const { page, categoryId } = to.query
     this.fetchRestaurants({ page, categoryId })
     next()
+  },
+  created () {
+    const { page, categoryId } = this.$route.query
+    this.fetchRestaurants({ page, categoryId })
   },
   methods: {
     // STEP 1：直接在 fetchRestaurants 的地方帶入預設值

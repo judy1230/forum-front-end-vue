@@ -1,23 +1,29 @@
 <template>
-  <div class="card bg-light mb-3" style="max-width: 18rem;">
-    <div class="card-header">{{ profileFollowers.length }} followers</div>
+  <div class="card">
+    <div class="card-header">
+      <strong>{{followers.length}}</strong> followers (追隨者)
+    </div>
     <div class="card-body">
-      <div class="ml-2 mt-2" v-for="follower in profileFollowers" :key="follower.id">
-				<router-link :to="{name: 'user', params:{id: follower.id}}"
-				>
-        <img :src="follower.image" style="width:50px;" />
-				</router-link>
-      </div>
+      <router-link
+        v-for="follower in followers"
+        :key="follower.id"
+        :to="{name:'user',params:{id:follower.id}}"
+      >
+        <img :src="follower.image | emptyImage" width="60" height="60" class="avatar mr-1" />
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import { emptyImageFilter } from "./../utils/mixins";
 export default {
+  name: "UserFollowersCard",
+  mixins: [emptyImageFilter],
   props: {
-    profileFollowers: {
+    followers: {
       type: Array,
-      required: true
+      default: () => []
     }
   }
 };
