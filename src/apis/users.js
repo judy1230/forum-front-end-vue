@@ -6,35 +6,32 @@ export default {
 		return apiHelper.get(`/get_current_user`, { headers: { Authorization: `Bearer ${getToken()}` }})
 
 	},
-	get({ userId }) {
-		console.log('userId',userId)
-		console.log('getToken()', getToken())
-		return apiHelper.get(`/users/${userId}`, { headers: { Authorization: `Bearer ${getToken()}`, 'X-Access-Token': 'dontbeserious'}} )
+	get({ userId = '' } = {}) {
+		return apiHelper.get(`/users/${userId}`)
+	},
+	update({ userId, formData }) {
+		return apiHelper.put(`/users/${userId}`, formData)
 	},
 	getTopUsers() {
-		return apiHelper.get('/users/top', {
-			headers: { Authorization: `Bearer ${getToken()}` }
-		})
+		return apiHelper.get('/users/top')
 	},
 	addFavorite({ restaurantId }) {
-		return apiHelper.post(`/favorite/${restaurantId}`, null, { headers: { Authorization: `Bearer ${getToken()}` } })
+		return apiHelper.post(`/favorite/${restaurantId}`)
 	},
 	deleteFavorite({ restaurantId }) {
-		return apiHelper.delete(`/favorite/${restaurantId}`, { headers: { Authorization: `Bearer ${getToken()}` } })
+		return apiHelper.delete(`/favorite/${restaurantId}`)
 	},
 	addLike({ restaurantId }) {
-		return apiHelper.post(`/like/${restaurantId}`, null, { headers: { Authorization: `Bearer ${getToken()}` } })
+		return apiHelper.post(`/like/${restaurantId}`)
 	},
 	deleteLike({ restaurantId }) {
-		return apiHelper.delete(`/like/${restaurantId}`, { headers: { Authorization: `Bearer ${getToken()}` } })
+		return apiHelper.delete(`/like/${restaurantId}`)
 	},
 	addFollowing({ userId }) {
-		return apiHelper.post(`/following/${userId}`, null, {
-			headers: { Authorization: `Bearer ${getToken()}` }
-		})
+		return apiHelper.post(`/following/${userId}`)
 	},
 	deleteFollowing({ userId }) {
-		return apiHelper.delete(`following/${userId}`, { headers: { Authorization: `Bearer ${getToken()}` } })
+		return apiHelper.delete(`following/${userId}`)
 	},
 	comments: {
 		create({ RestaurantId, text }) {

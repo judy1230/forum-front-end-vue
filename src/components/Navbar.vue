@@ -1,11 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <router-link
-      class="navbar-brand"
-      to="/"
-    >
-      餐廳評論網
-    </router-link>
+    <router-link class="navbar-brand" to="/">餐廳評論網</router-link>
 
     <button
       class="navbar-toggler"
@@ -21,29 +16,43 @@
 
     <div id="navbarSupportedContent" class="navbar-collapse collapse">
       <div class="ml-auto d-flex align-items-center">
-
         <!-- is user is admin -->
-        <router-link v-if="currentUser.isAdmin" :to="{name: 'admin-restaurants'}" class="text-white mr-3" >管理員後台</router-link>
+        <router-link
+          v-if="currentUser.isAdmin"
+          :to="{name: 'admin-restaurants'}"
+          class="text-white mr-3"
+        >管理員後台</router-link>
 
         <!-- is user is login -->
         <template v-if="isAuthenticated">
           <p class="text-white mr-3">{{ currentUser.name || '使用者'}} 你好</p>
-           <router-link  :to="{name: 'user', params:{id: currentUser.id}}" class="text-white mr-3"> Profile </router-link>
-          <button type="button" class="btn btn-sm btn-outline-success my-2 my-sm-0">登出</button>
+          <router-link
+            :to="{name: 'user', params:{id: currentUser.id}}"
+            class="text-white mr-3"
+          >Profile</router-link>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-success my-2 my-sm-0"
+            @click="logout"
+          >登出</button>
         </template>
-
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(['currentUser', 'isAuthenticated'])
+    ...mapState(["currentUser", "isAuthenticated"])
+  },
+  methods: {
+    logout() {
+      this.$store.commit("revokeAuthentication");
+      this.$router.push("/signin");
+    }
   }
-}
-
+};
 </script>
