@@ -43,3 +43,8 @@ export default {
   color: #42b983;
 }
 </style>
+<style scoped>
+  main {
+    margin-top: 65px !important;
+  }
+</style>

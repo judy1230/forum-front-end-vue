@@ -46,7 +46,7 @@ export default {
           throw new Error(statusText)
         }
         this.$emit('after-create-comment', {
-        commentId: data.commentId, 
+        commentId: data.commentId,
         restaurantId: this.restaurantId,
         text: this.text
         })
@@ -63,3 +63,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.form-group {
+  margin: 21px 0 8px;
+}
+</style>

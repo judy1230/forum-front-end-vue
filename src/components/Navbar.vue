@@ -24,8 +24,8 @@
         >管理員後台</router-link>
 
         <!-- is user is login -->
-        <template v-if="isAuthenticated">
-          <p class="text-white mr-3">{{ currentUser.name || '使用者'}} 你好</p>
+        <template v-if="isAuthenticated" class="text-center">
+          <span class="text-white mr-3">{{ currentUser.name || '使用者'}} 你好</span>
           <router-link
             :to="{name: 'user', params:{id: currentUser.id}}"
             class="text-white mr-3"
@@ -56,3 +56,19 @@ export default {
   }
 };
 </script>
+<style scoped>
+  .navbar-toggler {
+    min-width: 70px;
+    margin-right: 0;
+  }
+
+  nav.bg-dark {
+    padding: 14px 16px;
+    background-color: #bd2333 !important;
+  }
+
+  .navbar-brand {
+    font-size: 19px;
+    padding: 0;
+}
+</style>
