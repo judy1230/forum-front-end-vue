@@ -1,8 +1,8 @@
 <template>
   <div class="container py-5">
     <NavTabs />
-
-    <h1 class="mt-5">
+    <Spinner v-if="isLoading" />
+    <h1 v-else class="mt-5">
       最新動態
     </h1>
     <hr>
@@ -24,6 +24,7 @@
 import NavTabs from './../components/NavTabs'
 import NewestRestaurants from './../components/NewestRestaurants'
 import NewestComments from './../components/NewestComments'
+import Spinner from './../components/Spinner'
 import restaurantFeedsAPI from "./../apis/restaurantFeed"
 import { Toast } from './../utils/helpers'
 
@@ -33,12 +34,14 @@ export default {
   components: {
     NavTabs,
     NewestRestaurants,
-    NewestComments
+    NewestComments,
+    Spinner
   },
   data () {
     return  {
       restaurants: [],
-      comments: []
+      comments: [],
+      isLoading: true
     }
   },
   created () {
@@ -54,7 +57,9 @@ export default {
         }
         this.restaurants = data.restaurants
         this.comments = data.comments
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = true
         Toast.fire({
           type:'warn',
           title:'無法取得餐廳資料, 請稍後再試'
